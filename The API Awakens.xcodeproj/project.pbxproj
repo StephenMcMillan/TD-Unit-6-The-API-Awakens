@@ -7,14 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		694DFD8621FBE4A700AFB0AD /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8521FBE4A700AFB0AD /* Starship.swift */; };
+		694DFD8821FBE75500AFB0AD /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8721FBE75500AFB0AD /* Vehicle.swift */; };
+		694DFD8A21FBE8F500AFB0AD /* Transport Craft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */; };
+		694DFD8C21FBEACC00AFB0AD /* EntityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8B21FBEACC00AFB0AD /* EntityDetailViewController.swift */; };
+		694DFD8E21FBF55800AFB0AD /* RowRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */; };
+		696A98EA21FBF86D00AC3897 /* AttributesTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */; };
+		696A98EC21FBFA6D00AC3897 /* AttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98EB21FBFA6D00AC3897 /* AttributeCell.swift */; };
 		69C9B75421FBCD6C007DC7D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */; };
 		69C9B75621FBCD6C007DC7D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9B75521FBCD6C007DC7D4 /* ViewController.swift */; };
 		69C9B75921FBCD6C007DC7D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C9B75721FBCD6C007DC7D4 /* Main.storyboard */; };
 		69C9B75B21FBCD72007DC7D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69C9B75A21FBCD72007DC7D4 /* Assets.xcassets */; };
 		69C9B75E21FBCD72007DC7D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C9B75C21FBCD72007DC7D4 /* LaunchScreen.storyboard */; };
+		69C9B76A21FBE3CF007DC7D4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9B76921FBE3CF007DC7D4 /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		694DFD8521FBE4A700AFB0AD /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
+		694DFD8721FBE75500AFB0AD /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transport Craft.swift"; sourceTree = "<group>"; };
+		694DFD8B21FBEACC00AFB0AD /* EntityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityDetailViewController.swift; sourceTree = "<group>"; };
+		694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowRepresentable.swift; sourceTree = "<group>"; };
+		696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesTableDataSource.swift; sourceTree = "<group>"; };
+		696A98EB21FBFA6D00AC3897 /* AttributeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeCell.swift; sourceTree = "<group>"; };
 		69C9B75021FBCD6C007DC7D4 /* The API Awakens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The API Awakens.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69C9B75521FBCD6C007DC7D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +37,7 @@
 		69C9B75A21FBCD72007DC7D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69C9B75D21FBCD72007DC7D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69C9B75F21FBCD72007DC7D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69C9B76921FBE3CF007DC7D4 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +51,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		696A98ED21FC072200AC3897 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */,
+			);
+			path = "Data Source";
+			sourceTree = "<group>";
+		};
 		69C9B74721FBCD6C007DC7D4 = {
 			isa = PBXGroup;
 			children = (
@@ -55,13 +79,53 @@
 			isa = PBXGroup;
 			children = (
 				69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */,
-				69C9B75521FBCD6C007DC7D4 /* ViewController.swift */,
-				69C9B75721FBCD6C007DC7D4 /* Main.storyboard */,
+				69C9B76521FBD0B9007DC7D4 /* Models */,
+				69C9B76621FBD0C1007DC7D4 /* Views */,
+				69C9B76721FBD0C4007DC7D4 /* Controllers */,
+				696A98ED21FC072200AC3897 /* Data Source */,
+				69C9B76821FBD0CA007DC7D4 /* User Interface */,
 				69C9B75A21FBCD72007DC7D4 /* Assets.xcassets */,
-				69C9B75C21FBCD72007DC7D4 /* LaunchScreen.storyboard */,
 				69C9B75F21FBCD72007DC7D4 /* Info.plist */,
 			);
 			path = "The API Awakens";
+			sourceTree = "<group>";
+		};
+		69C9B76521FBD0B9007DC7D4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				69C9B76921FBE3CF007DC7D4 /* Person.swift */,
+				694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */,
+				694DFD8721FBE75500AFB0AD /* Vehicle.swift */,
+				694DFD8521FBE4A700AFB0AD /* Starship.swift */,
+				694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		69C9B76621FBD0C1007DC7D4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				696A98EB21FBFA6D00AC3897 /* AttributeCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		69C9B76721FBD0C4007DC7D4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				69C9B75521FBCD6C007DC7D4 /* ViewController.swift */,
+				694DFD8B21FBEACC00AFB0AD /* EntityDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		69C9B76821FBD0CA007DC7D4 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				69C9B75721FBCD6C007DC7D4 /* Main.storyboard */,
+				69C9B75C21FBCD72007DC7D4 /* LaunchScreen.storyboard */,
+			);
+			path = "User Interface";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +199,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C9B76A21FBE3CF007DC7D4 /* Person.swift in Sources */,
+				696A98EA21FBF86D00AC3897 /* AttributesTableDataSource.swift in Sources */,
+				694DFD8A21FBE8F500AFB0AD /* Transport Craft.swift in Sources */,
 				69C9B75621FBCD6C007DC7D4 /* ViewController.swift in Sources */,
+				694DFD8C21FBEACC00AFB0AD /* EntityDetailViewController.swift in Sources */,
 				69C9B75421FBCD6C007DC7D4 /* AppDelegate.swift in Sources */,
+				694DFD8E21FBF55800AFB0AD /* RowRepresentable.swift in Sources */,
+				694DFD8821FBE75500AFB0AD /* Vehicle.swift in Sources */,
+				696A98EC21FBFA6D00AC3897 /* AttributeCell.swift in Sources */,
+				694DFD8621FBE4A700AFB0AD /* Starship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +364,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StephenMcMillan.The-API-Awakens";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -310,7 +382,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.StephenMcMillan.The-API-Awakens";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
