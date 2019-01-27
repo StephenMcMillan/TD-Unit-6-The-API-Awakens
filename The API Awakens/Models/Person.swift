@@ -8,13 +8,19 @@
 
 import Foundation
 // A Person in the Star Wars Universe
-struct Person {
-    let name: String
+struct Person: StarWarsEntity {
+    var name: String
+    
     let birthYear: String
     //    let homeworld: Well.. :/
-    let height: Double
+    let height: String
     let eyeColor: String
     let hairColor: String
+}
+
+// A wrapper for decoding
+struct PersonResult: Decodable {
+    var results: [Person]
 }
 
 extension Person: AttributeRepresentable {
@@ -25,7 +31,5 @@ extension Person: AttributeRepresentable {
                  (description: "Eye Color", value: self.eyeColor),
                  (description: "Hair Color", value: self.hairColor)]
     }
-    
-    
 }
 

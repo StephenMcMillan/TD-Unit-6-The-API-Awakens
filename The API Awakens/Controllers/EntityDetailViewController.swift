@@ -9,56 +9,95 @@
 import UIKit
 
 class EntityDetailViewController: UIViewController {
+    
+    // Type of Entity
+    var typeOfEntityToShow: EntityType?
+    
+    // Networking Properties
+    var starWarsAPIClient = StarWarsAPIClient()
 
     // Properties
-    var entity: Entity? {
+    var allEntities: [StarWarsEntity] = []
+    var currentEntity: StarWarsEntity? {
         didSet {
-            configure(with: entity!)
+            updateDisplay(for: currentEntity!)
         }
     }
     
-    lazy var dataSource: AttributesTableDataSource = {
+    // Data Sources
+    lazy var attributesTableDataSource: AttributesTableDataSource = {
         return AttributesTableDataSource(attributes: [])
+    }()
+    
+    lazy var entityPickerDataSource: EntityPickerDataSource = {
+        return EntityPickerDataSource(entityNames: [])
     }()
     
     // Storyboard Outlets
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var attributesTableView: UITableView!
-    
     @IBOutlet weak var entityPickerView: UIPickerView!
-    
     @IBOutlet weak var smallestEntityLabel: UILabel!
     @IBOutlet weak var largestEntityLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        attributesTableView.dataSource = dataSource
-    }
+        attributesTableView.dataSource = attributesTableDataSource
+        entityPickerView.dataSource = entityPickerDataSource // FIXME: Rename to datasource
+        entityPickerView.delegate = self
 
-    func configure(with entity: Entity) {
-        switch entity {
-        case .person(let person):
-            print("This is broken lol.")
-            dataSource.update(with: person.attributes)
-        case .vehicle(let vehicle):
-            
-            dataSource.update(with: vehicle.attributes)
-            
-            
-            
-        case .starship(let startship):
-            print("This is broken lol.")
-            
-        default: break
+        fetchData(for: typeOfEntityToShow!)
+    
+    }
+    
+    // MARK: - Data Fetch and Subsequent setup
+    func fetchData(for entityType: EntityType) {
+        switch entityType {
+        case .people:
+            starWarsAPIClient.getPeople(completionHandler: setup)
+        case .vehicles:
+            starWarsAPIClient.getVehicles(completionHandler: setup)
+        case .starships:
+            print("Add this fs")
+        }
+    }
+    
+    func setup<T: StarWarsEntity>(with entities:[T]?, error: StarWarsAPIError?) {
+    
+        guard let entities = entities else {
+            fatalError("ffs")
         }
         
+        allEntities = entities
+        
+        let entityNames = allEntities.map { $0.name }
+        entityPickerDataSource.update(with: entityNames)
+        entityPickerView.reloadAllComponents()
+        
+        currentEntity = entities.first
+        
+    }
+    
+    // MARK: - Update Display
+    func updateDisplay(for entity: StarWarsEntity) {
+        
+        nameLabel.text = entity.name
+        
+        if let entityWithAttributes = entity as? AttributeRepresentable {
+            attributesTableDataSource.update(with: entityWithAttributes.attributes)
+            attributesTableView.reloadData()
+        }
     }
 }
 
-enum Entity {
-    case person(Person)
-    case vehicle(Vehicle)
-    case starship(Starship)
+extension EntityDetailViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return allEntities[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        currentEntity = allEntities[row]
+    }
 }

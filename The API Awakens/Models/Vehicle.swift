@@ -12,16 +12,20 @@ import Foundation
 struct Vehicle: SingleTransportCraft {
     
     var name: String
-    var manufactuer: String
-    var costInCredits: Int
-    var length: Double
+    var manufacturer: String
+    var costInCredits: String
+    var length: String
     var vehicleClass: String
-    var crew: Int
+    var crew: String
+}
+
+struct VehicleResult: Decodable {
+    var results: [Vehicle]
 }
 
 extension Vehicle: AttributeRepresentable {
     var attributes: [Attribute] {
-        return [(description: "Make", value: self.manufactuer),
+        return [(description: "Make", value: self.manufacturer),
                 (description: "Cost", value: self.costInCredits),
                 (description: "Length", value: self.length),
                 (description: "Class", value: self.vehicleClass),

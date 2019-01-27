@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		694DFD8621FBE4A700AFB0AD /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8521FBE4A700AFB0AD /* Starship.swift */; };
 		694DFD8821FBE75500AFB0AD /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8721FBE75500AFB0AD /* Vehicle.swift */; };
-		694DFD8A21FBE8F500AFB0AD /* Transport Craft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */; };
+		694DFD8A21FBE8F500AFB0AD /* TransportCraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8921FBE8F500AFB0AD /* TransportCraft.swift */; };
 		694DFD8C21FBEACC00AFB0AD /* EntityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8B21FBEACC00AFB0AD /* EntityDetailViewController.swift */; };
 		694DFD8E21FBF55800AFB0AD /* RowRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */; };
 		696A98EA21FBF86D00AC3897 /* AttributesTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */; };
 		696A98EC21FBFA6D00AC3897 /* AttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98EB21FBFA6D00AC3897 /* AttributeCell.swift */; };
+		696A98F021FC91B100AC3897 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98EF21FC91B100AC3897 /* Endpoint.swift */; };
+		696A98F221FC942600AC3897 /* StarWarsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98F121FC942600AC3897 /* StarWarsAPIClient.swift */; };
+		696A98F421FCA69600AC3897 /* DataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98F321FCA69600AC3897 /* DataDownloader.swift */; };
+		696A98FA21FD466300AC3897 /* EntityPickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98F921FD466300AC3897 /* EntityPickerDataSource.swift */; };
+		696A98FC21FD476600AC3897 /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696A98FB21FD476600AC3897 /* EntityType.swift */; };
 		69C9B75421FBCD6C007DC7D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */; };
 		69C9B75621FBCD6C007DC7D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9B75521FBCD6C007DC7D4 /* ViewController.swift */; };
 		69C9B75921FBCD6C007DC7D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C9B75721FBCD6C007DC7D4 /* Main.storyboard */; };
@@ -25,11 +30,16 @@
 /* Begin PBXFileReference section */
 		694DFD8521FBE4A700AFB0AD /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		694DFD8721FBE75500AFB0AD /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
-		694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transport Craft.swift"; sourceTree = "<group>"; };
+		694DFD8921FBE8F500AFB0AD /* TransportCraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportCraft.swift; sourceTree = "<group>"; };
 		694DFD8B21FBEACC00AFB0AD /* EntityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityDetailViewController.swift; sourceTree = "<group>"; };
 		694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowRepresentable.swift; sourceTree = "<group>"; };
 		696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesTableDataSource.swift; sourceTree = "<group>"; };
 		696A98EB21FBFA6D00AC3897 /* AttributeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeCell.swift; sourceTree = "<group>"; };
+		696A98EF21FC91B100AC3897 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		696A98F121FC942600AC3897 /* StarWarsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsAPIClient.swift; sourceTree = "<group>"; };
+		696A98F321FCA69600AC3897 /* DataDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDownloader.swift; sourceTree = "<group>"; };
+		696A98F921FD466300AC3897 /* EntityPickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPickerDataSource.swift; sourceTree = "<group>"; };
+		696A98FB21FD476600AC3897 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
 		69C9B75021FBCD6C007DC7D4 /* The API Awakens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The API Awakens.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69C9B75521FBCD6C007DC7D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,8 +65,19 @@
 			isa = PBXGroup;
 			children = (
 				696A98E921FBF86D00AC3897 /* AttributesTableDataSource.swift */,
+				696A98F921FD466300AC3897 /* EntityPickerDataSource.swift */,
 			);
 			path = "Data Source";
+			sourceTree = "<group>";
+		};
+		696A98EE21FC91A400AC3897 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				696A98EF21FC91B100AC3897 /* Endpoint.swift */,
+				696A98F121FC942600AC3897 /* StarWarsAPIClient.swift */,
+				696A98F321FCA69600AC3897 /* DataDownloader.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		69C9B74721FBCD6C007DC7D4 = {
@@ -79,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				69C9B75321FBCD6C007DC7D4 /* AppDelegate.swift */,
+				696A98EE21FC91A400AC3897 /* Networking */,
 				69C9B76521FBD0B9007DC7D4 /* Models */,
 				69C9B76621FBD0C1007DC7D4 /* Views */,
 				69C9B76721FBD0C4007DC7D4 /* Controllers */,
@@ -94,10 +116,11 @@
 			isa = PBXGroup;
 			children = (
 				69C9B76921FBE3CF007DC7D4 /* Person.swift */,
-				694DFD8921FBE8F500AFB0AD /* Transport Craft.swift */,
+				694DFD8921FBE8F500AFB0AD /* TransportCraft.swift */,
 				694DFD8721FBE75500AFB0AD /* Vehicle.swift */,
 				694DFD8521FBE4A700AFB0AD /* Starship.swift */,
 				694DFD8D21FBF55800AFB0AD /* RowRepresentable.swift */,
+				696A98FB21FD476600AC3897 /* EntityType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,16 +222,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696A98FC21FD476600AC3897 /* EntityType.swift in Sources */,
 				69C9B76A21FBE3CF007DC7D4 /* Person.swift in Sources */,
 				696A98EA21FBF86D00AC3897 /* AttributesTableDataSource.swift in Sources */,
-				694DFD8A21FBE8F500AFB0AD /* Transport Craft.swift in Sources */,
+				696A98F221FC942600AC3897 /* StarWarsAPIClient.swift in Sources */,
+				694DFD8A21FBE8F500AFB0AD /* TransportCraft.swift in Sources */,
 				69C9B75621FBCD6C007DC7D4 /* ViewController.swift in Sources */,
 				694DFD8C21FBEACC00AFB0AD /* EntityDetailViewController.swift in Sources */,
 				69C9B75421FBCD6C007DC7D4 /* AppDelegate.swift in Sources */,
 				694DFD8E21FBF55800AFB0AD /* RowRepresentable.swift in Sources */,
 				694DFD8821FBE75500AFB0AD /* Vehicle.swift in Sources */,
 				696A98EC21FBFA6D00AC3897 /* AttributeCell.swift in Sources */,
+				696A98F021FC91B100AC3897 /* Endpoint.swift in Sources */,
 				694DFD8621FBE4A700AFB0AD /* Starship.swift in Sources */,
+				696A98F421FCA69600AC3897 /* DataDownloader.swift in Sources */,
+				696A98FA21FD466300AC3897 /* EntityPickerDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

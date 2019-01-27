@@ -16,18 +16,22 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let navigationController = segue.destination as? UINavigationController, let detailViewController = navigationController.topViewController as? EntityDetailViewController {
-            print("Callign...")
+        if let detailViewController = segue.destination as? EntityDetailViewController, let identifier = segue.identifier {
             
-            let vehicle = Vehicle(name: "Sand Crawler", manufactuer: "Corellia Mining Corporation", costInCredits: 150000, length: 36.8, vehicleClass: "wheeled", crew: 46)
+            print(identifier)
             
-            let lukeSkywalker = Person(name: "Luke Skywalker", birthYear: "19BBY", height: 172.0, eyeColor: "blue", hairColor: "blond")
-
-            detailViewController.entity = Entity.person(lukeSkywalker)
+            switch identifier {
+            case "ShowPeople":
+                detailViewController.typeOfEntityToShow = .people
+            case "ShowVehicles":
+                detailViewController.typeOfEntityToShow = .vehicles
+            case "ShowStarships":
+                detailViewController.typeOfEntityToShow = .starships
+                
+            default:
+                fatalError("Somebody messed up badly...")
+            }
         }
     }
-
-
 }
 

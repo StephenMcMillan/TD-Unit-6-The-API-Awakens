@@ -9,11 +9,11 @@
 import Foundation
 
 // A Vehicle in the Star Wars Universe
-protocol SingleTransportCraft {
+protocol SingleTransportCraft: StarWarsEntity {
     var name: String { get }
-    var manufactuer: String { get }
-    var costInCredits: Int { get }
-    var length: Double { get }
+    var manufacturer: String { get }
+    var costInCredits: String { get }
+    var length: String { get }
     var vehicleClass: String { get }
-    var crew: Int { get }
+    var crew: String { get }
 }
