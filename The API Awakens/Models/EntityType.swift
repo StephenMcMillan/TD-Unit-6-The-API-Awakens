@@ -13,8 +13,8 @@ protocol StarWarsEntity: Decodable {
     var name: String { get set}
 }
 
-enum EntityType {
-    case people
-    case vehicles
-    case starships
+enum EntityType: String {
+    case people = "Characters"
+    case vehicles = "Vehicles"
+    case starships = "Starships"
 }

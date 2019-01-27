@@ -9,11 +9,8 @@
 import Foundation
 
 // Allows a type to have its properties represnted in a table view.
-typealias Attribute = (description: String, value: Any)
+typealias Attribute = (description: String, value: AttributeCellContent)
 
 protocol AttributeRepresentable {
     var attributes: [Attribute] { get }
 }
-
-
-

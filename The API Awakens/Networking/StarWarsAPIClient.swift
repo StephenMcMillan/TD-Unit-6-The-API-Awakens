@@ -8,13 +8,6 @@
 
 import Foundation
 
-enum StarWarsAPIError: Error {
-    case badRequest
-    case requestUnsuccessful(Int)
-    case decodingFailure
-    case missingData
-}
-
 class StarWarsAPIClient {
     
     let downloader = DataDownloader()
@@ -33,12 +26,11 @@ class StarWarsAPIClient {
                     completion(personResult.results, nil)
                     
                 } catch {
-                    
                     completion(nil, .decodingFailure)
                 }
      
             } else {
-                // error
+                completion(nil, error)
             }
             
         }
@@ -53,24 +45,45 @@ class StarWarsAPIClient {
                     
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                
-                    let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    dump(json)
                     
                     let vehicleResult = try decoder.decode(VehicleResult.self, from: data)
                     completion(vehicleResult.results, nil)
                     
                 } catch {
-                    print(error)
-//                    completion(nil, .decodingFailure)
+                    completion(nil, .decodingFailure)
                 }
                 
             } else {
-                // error
+                completion(nil, error)
             }
             
         }
     }
+    
+    func getStarships(completionHandler completion: @escaping ([Starship]?, StarWarsAPIError?) -> Void) {
+        
+        downloader.get(from: StarWars.startships) { data, error in
+            
+            if let data = data {
+                do {
+                    
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    
+                    let startshipResult = try decoder.decode(StarshipResult.self, from: data)
+                    completion(startshipResult.results, nil)
+                    
+                } catch {
+                    completion(nil, .decodingFailure)
+                }
+                
+            } else {
+                completion(nil, error)
+            }
+            
+        }
+    }
+    
 
     
     

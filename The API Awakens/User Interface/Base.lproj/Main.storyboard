@@ -134,7 +134,7 @@
             </objects>
             <point key="canvasLocation" x="1695.2" y="25.862068965517242"/>
         </scene>
-        <!--Characters-->
+        <!--Entity Detail View Controller-->
         <scene sceneID="W55-c6-OXi">
             <objects>
                 <viewController id="qYe-mx-Va7" customClass="EntityDetailViewController" customModule="The_API_Awakens" customModuleProvider="target" sceneMemberID="viewController">
@@ -200,13 +200,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sand Crawler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3b-l5-NOe">
-                                <rect key="frame" x="102.33333333333333" y="128" width="170.33333333333337" height="33.666666666666657"/>
+                                <rect key="frame" x="102.33333333333333" y="118.00000000000001" width="170.33333333333337" height="33.666666666666671"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="28"/>
                                 <color key="textColor" white="0.95999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wow-LQ-uEd">
-                                <rect key="frame" x="16" y="191.66666666666666" width="343" height="386.33333333333337"/>
+                                <rect key="frame" x="16" y="181.66666666666666" width="343" height="396.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="ppg-zG-sy1">
                                     <rect key="frame" x="0.0" y="72" width="343" height="44"/>
@@ -221,30 +221,46 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzg-Up-QzZ">
-                                                    <rect key="frame" x="0.0" y="10" width="48.666666666666664" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                    <color key="textColor" red="0.55569994449615479" green="0.79968398809432983" blue="0.98042434453964233" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Corellia Mining Corporation" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QuR-fG-oFI">
-                                                    <rect key="frame" x="98.666666666666671" y="10" width="244.33333333333331" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DOB-Wf-Juk">
+                                                    <rect key="frame" x="0.0" y="8" width="343" height="28"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Make" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzg-Up-QzZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="48.666666666666664" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                            <color key="textColor" red="0.55569994449615479" green="0.79968398809432983" blue="0.98042434453964233" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Corellia Mining Corporation" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QuR-fG-oFI">
+                                                            <rect key="frame" x="56.666666666666671" y="0.0" width="161.33333333333331" height="28"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d7a-15-pxo">
+                                                            <rect key="frame" x="226" y="0.0" width="117" height="29"/>
+                                                            <segments>
+                                                                <segment title="English"/>
+                                                                <segment title="Metric"/>
+                                                            </segments>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <connections>
+                                                                <action selector="stepperChanged:" destination="aT8-sd-oti" eventType="valueChanged" id="cpe-4f-Erq"/>
+                                                            </connections>
+                                                        </segmentedControl>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.10995472222566605" green="0.12514221668243408" blue="0.14118033647537231" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstItem="Xzg-Up-QzZ" firstAttribute="leading" secondItem="D1h-aA-4X7" secondAttribute="leading" id="60U-ZJ-D57"/>
-                                                <constraint firstItem="QuR-fG-oFI" firstAttribute="centerY" secondItem="D1h-aA-4X7" secondAttribute="centerY" id="Aoq-OG-IAn"/>
-                                                <constraint firstAttribute="trailing" secondItem="QuR-fG-oFI" secondAttribute="trailing" id="Snl-qd-GQO"/>
-                                                <constraint firstItem="Xzg-Up-QzZ" firstAttribute="centerY" secondItem="D1h-aA-4X7" secondAttribute="centerY" id="fLr-N7-red"/>
+                                                <constraint firstItem="DOB-Wf-Juk" firstAttribute="leading" secondItem="D1h-aA-4X7" secondAttribute="leading" id="26Z-zP-7fT"/>
+                                                <constraint firstItem="DOB-Wf-Juk" firstAttribute="centerY" secondItem="D1h-aA-4X7" secondAttribute="centerY" id="2S8-9z-zqB"/>
+                                                <constraint firstAttribute="trailing" secondItem="DOB-Wf-Juk" secondAttribute="trailing" id="znK-Ye-48V"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="attributeDescription" destination="Xzg-Up-QzZ" id="ocT-LL-ZSj"/>
                                             <outlet property="attributeLabel" destination="QuR-fG-oFI" id="wCf-BU-XeZ"/>
+                                            <outlet property="valueStepper" destination="d7a-15-pxo" id="Qni-zG-AX7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -269,7 +285,7 @@
                             <constraint firstAttribute="trailing" secondItem="HSX-rW-zgQ" secondAttribute="trailing" id="fs6-DA-Kt1"/>
                             <constraint firstItem="UYI-E1-cAG" firstAttribute="bottom" secondItem="ySZ-m1-fNB" secondAttribute="bottom" id="g0o-hr-64v"/>
                             <constraint firstItem="HSX-rW-zgQ" firstAttribute="leading" secondItem="vb1-fS-RxH" secondAttribute="leading" id="gb8-e3-ZSv"/>
-                            <constraint firstItem="U3b-l5-NOe" firstAttribute="top" secondItem="UYI-E1-cAG" secondAttribute="top" constant="40" id="i02-yd-q66"/>
+                            <constraint firstItem="U3b-l5-NOe" firstAttribute="top" secondItem="UYI-E1-cAG" secondAttribute="top" constant="30" id="i02-yd-q66"/>
                             <constraint firstAttribute="bottom" secondItem="HSX-rW-zgQ" secondAttribute="bottom" id="isX-4r-I03"/>
                             <constraint firstItem="wAz-87-CsL" firstAttribute="leading" secondItem="UYI-E1-cAG" secondAttribute="leading" id="jaX-2M-CMi"/>
                             <constraint firstItem="wAz-87-CsL" firstAttribute="trailing" secondItem="UYI-E1-cAG" secondAttribute="trailing" id="lwp-nC-G3D"/>
@@ -278,7 +294,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UYI-E1-cAG"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Characters" id="R6u-Ig-MqO"/>
+                    <navigationItem key="navigationItem" id="R6u-Ig-MqO"/>
                     <connections>
                         <outlet property="attributesTableView" destination="wow-LQ-uEd" id="0HG-QE-Ygj"/>
                         <outlet property="entityPickerView" destination="wAz-87-CsL" id="cYD-K2-dOf"/>
@@ -289,16 +305,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mo-mG-CZC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2609" y="26"/>
+            <point key="canvasLocation" x="2608.8000000000002" y="25.862068965517242"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cl8-Au-gcc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VK6-4Q-ucf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="86v-Jh-6ub">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="86v-Jh-6ub">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.10980392156862745" green="0.12514221668243408" blue="0.14118033647537231" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -316,6 +334,6 @@
         <image name="icon-vehicle" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Qp-oh-AtR"/>
+        <segue reference="iLI-jm-db6"/>
     </inferredMetricsTieBreakers>
 </document>

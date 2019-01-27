@@ -16,6 +16,18 @@ struct Person: StarWarsEntity {
     let height: String
     let eyeColor: String
     let hairColor: String
+
+}
+
+// People can be compared based on their heights.
+extension Person: Comparable {
+    static func < (lhs: Person, rhs: Person) -> Bool {
+        if let lhsHeight = Double(lhs.height), let rhsHeight = Double(rhs.height) {
+            return lhsHeight < rhsHeight
+        } else {
+            fatalError("Incomporable, unable to convert to double.")
+        }
+    }
 }
 
 // A wrapper for decoding
@@ -25,11 +37,10 @@ struct PersonResult: Decodable {
 
 extension Person: AttributeRepresentable {
     var attributes: [Attribute] {
-        return [(description: "Born", value: self.birthYear),
-                 (description: "Homeworld", value: "Fix me"),
-                 (description: "Height", value: self.height),
-                 (description: "Eye Color", value: self.eyeColor),
-                 (description: "Hair Color", value: self.hairColor)]
+        return [(description: "Born", value: .text(self.birthYear)),
+                 (description: "Homeworld", value: .text("Fix me")),
+                 (description: "Height", value: .length(Measurement(value: Double(height)!, unit: UnitLength.meters))),
+                 (description: "Eye Color", value: .text(self.eyeColor.capitalized)),
+                 (description: "Hair Color", value: .text(self.hairColor.capitalized))]
     }
 }
-

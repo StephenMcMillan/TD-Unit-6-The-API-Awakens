@@ -13,8 +13,11 @@ class AttributesTableDataSource: NSObject, UITableViewDataSource {
     
     private var attributes:  [Attribute]
     
-    init(attributes: [Attribute]) {
+    weak var cellConversionDelegate: AttributeCellCurrencyRateDelegate?
+    
+    init(attributes: [Attribute], cellConversionDelegate: AttributeCellCurrencyRateDelegate) {
         self.attributes = attributes
+        self.cellConversionDelegate = cellConversionDelegate
         super.init()
     }
     
@@ -33,7 +36,8 @@ class AttributesTableDataSource: NSObject, UITableViewDataSource {
         let attribute = attributes[indexPath.row]
         
         cell.attributeDescription.text = attribute.description
-        cell.attributeLabel.text = "\(attribute.value)"
+        cell.configure(with: attribute.value)
+        cell.currencyRateDelegate = cellConversionDelegate
         
         return cell        
     }

@@ -26,7 +26,7 @@ class EntityDetailViewController: UIViewController {
     
     // Data Sources
     lazy var attributesTableDataSource: AttributesTableDataSource = {
-        return AttributesTableDataSource(attributes: [])
+        return AttributesTableDataSource(attributes: [], cellConversionDelegate: self)
     }()
     
     lazy var entityPickerDataSource: EntityPickerDataSource = {
@@ -43,12 +43,14 @@ class EntityDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = typeOfEntityToShow?.rawValue
+        
         attributesTableView.dataSource = attributesTableDataSource
         entityPickerView.dataSource = entityPickerDataSource // FIXME: Rename to datasource
         entityPickerView.delegate = self
 
         fetchData(for: typeOfEntityToShow!)
-    
+
     }
     
     // MARK: - Data Fetch and Subsequent setup
@@ -59,14 +61,15 @@ class EntityDetailViewController: UIViewController {
         case .vehicles:
             starWarsAPIClient.getVehicles(completionHandler: setup)
         case .starships:
-            print("Add this fs")
+            starWarsAPIClient.getStarships(completionHandler: setup)
         }
     }
     
     func setup<T: StarWarsEntity>(with entities:[T]?, error: StarWarsAPIError?) {
     
         guard let entities = entities else {
-            fatalError("ffs")
+            print(error)
+            fatalError("oops") // FIXME: Add real error code
         }
         
         allEntities = entities
@@ -76,6 +79,8 @@ class EntityDetailViewController: UIViewController {
         entityPickerView.reloadAllComponents()
         
         currentEntity = entities.first
+        updateSmallestAndLargestBar(using: entities)
+
         
     }
     
@@ -89,6 +94,24 @@ class EntityDetailViewController: UIViewController {
             attributesTableView.reloadData()
         }
     }
+    
+    func updateSmallestAndLargestBar(using entities: [StarWarsEntity]) {
+        // Not a huge fan but it works...
+        var sortedEntities: [StarWarsEntity] = []
+        
+        if let peopleEntities = entities as? [Person] {
+            sortedEntities = peopleEntities.sorted { $0 < $1 }
+            
+        } else if let vehicleEntities = entities as? [Vehicle] {
+            sortedEntities = vehicleEntities.sorted { $0 < $1 }
+            
+        } else if let starshipEntities = entities as? [Starship] {
+            sortedEntities = starshipEntities.sorted { $0 < $1 }
+        }
+        
+        smallestEntityLabel.text = sortedEntities.first?.name
+        largestEntityLabel.text = sortedEntities.last?.name
+    }
 }
 
 extension EntityDetailViewController: UIPickerViewDelegate {
@@ -101,3 +124,25 @@ extension EntityDetailViewController: UIPickerViewDelegate {
         currentEntity = allEntities[row]
     }
 }
+
+// FIXME: Extract
+extension EntityDetailViewController: AttributeCellCurrencyRateDelegate {
+    func getConversionRate(completion: @escaping (Double) -> Void) {
+        
+        let alert = UIAlertController(title: "Conversion Rate", message: "Please specify what 1 Galactic Credit is equivalent to in USD. ", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        
+        let finishAction = UIAlertAction(title: "Convert", style: .default) { (alertAction) in
+            
+            completion(Double(alert.textFields!.first!.text!)!) // FIXME: This needs validation. used observers on the text field.
+
+            alert.dismiss(animated: true, completion: nil)
+        }
+        
+        alert.addAction(finishAction)
+
+        present(alert, animated: true, completion: nil)
+
+    }
+}
+
