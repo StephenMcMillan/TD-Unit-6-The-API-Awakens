@@ -47,6 +47,8 @@ class AttributeCell: UITableViewCell {
         
         currentContent = content
         
+        valueStepper.selectedSegmentIndex = 0
+        
         switch content {
         case .text(let value):
             attributeLabel.text = value

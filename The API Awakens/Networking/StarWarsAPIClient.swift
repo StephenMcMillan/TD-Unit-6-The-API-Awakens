@@ -19,10 +19,7 @@ class StarWarsAPIClient {
             if let data = data {
                 do {
                     
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    
-                    let personResult = try decoder.decode(PersonResult.self, from: data)
+                let personResult = try JSONDecoder.defaultDecoder.decode(PersonResult.self, from: data)
                     completion(personResult.results, nil)
                     
                 } catch {
@@ -43,10 +40,8 @@ class StarWarsAPIClient {
             if let data = data {
                 do {
                     
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let vehicleResult = try JSONDecoder.defaultDecoder.decode(VehicleResult.self, from: data)
                     
-                    let vehicleResult = try decoder.decode(VehicleResult.self, from: data)
                     completion(vehicleResult.results, nil)
                     
                 } catch {
@@ -67,11 +62,9 @@ class StarWarsAPIClient {
             if let data = data {
                 do {
                     
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let starshipResult = try JSONDecoder.defaultDecoder.decode(StarshipResult.self, from: data)
                     
-                    let startshipResult = try decoder.decode(StarshipResult.self, from: data)
-                    completion(startshipResult.results, nil)
+                    completion(starshipResult.results, nil)
                     
                 } catch {
                     completion(nil, .decodingFailure)
@@ -84,9 +77,12 @@ class StarWarsAPIClient {
         }
     }
     
+}
 
-    
-    
-    
-    
+extension JSONDecoder {
+    static let defaultDecoder: JSONDecoder = {
+       let defaultDecoder = JSONDecoder()
+        defaultDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        return defaultDecoder
+    }()
 }

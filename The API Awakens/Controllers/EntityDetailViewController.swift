@@ -45,8 +45,11 @@ class EntityDetailViewController: UIViewController {
         
         self.title = typeOfEntityToShow?.rawValue
         
+        smallestEntityLabel.isHidden = true
+        largestEntityLabel.isHidden = true
+        
         attributesTableView.dataSource = attributesTableDataSource
-        entityPickerView.dataSource = entityPickerDataSource // FIXME: Rename to datasource
+        entityPickerView.dataSource = entityPickerDataSource 
         entityPickerView.delegate = self
 
         fetchData(for: typeOfEntityToShow!)
@@ -66,21 +69,31 @@ class EntityDetailViewController: UIViewController {
     }
     
     func setup<T: StarWarsEntity>(with entities:[T]?, error: StarWarsAPIError?) {
-    
-        guard let entities = entities else {
-            print(error)
-            fatalError("oops") // FIXME: Add real error code
-        }
         
-        allEntities = entities
-        
-        let entityNames = allEntities.map { $0.name }
-        entityPickerDataSource.update(with: entityNames)
-        entityPickerView.reloadAllComponents()
-        
-        currentEntity = entities.first
-        updateSmallestAndLargestBar(using: entities)
+        DispatchQueue.main.async {
+            guard let entities = entities else {
+                // TODO: Check capture semantics, possible memory leak due to self capture
+                let errorAlert = UIAlertController.networkErrorAlert(error: error)
+                let popAction = UIAlertAction(title: "Ok", style: .default) { alert in
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+                errorAlert.addAction(popAction)
 
+                self.present(errorAlert, animated: true, completion: nil) // FIXME: See ^ 
+                
+                return
+            }
+            
+            self.allEntities = entities
+            
+            let entityNames = self.allEntities.map { $0.name }
+            
+            self.entityPickerDataSource.update(with: entityNames)
+            self.entityPickerView.reloadAllComponents()
+            self.currentEntity = entities.first
+            self.updateSmallestAndLargestBar(using: entities)
+        }
         
     }
     
@@ -93,6 +106,8 @@ class EntityDetailViewController: UIViewController {
             attributesTableDataSource.update(with: entityWithAttributes.attributes)
             attributesTableView.reloadData()
         }
+        
+        
     }
     
     func updateSmallestAndLargestBar(using entities: [StarWarsEntity]) {
@@ -111,6 +126,11 @@ class EntityDetailViewController: UIViewController {
         
         smallestEntityLabel.text = sortedEntities.first?.name
         largestEntityLabel.text = sortedEntities.last?.name
+        
+        smallestEntityLabel.isHidden = false
+        largestEntityLabel.isHidden = false
+        
+
     }
 }
 
@@ -130,19 +150,27 @@ extension EntityDetailViewController: AttributeCellCurrencyRateDelegate {
     func getConversionRate(completion: @escaping (Double) -> Void) {
         
         let alert = UIAlertController(title: "Conversion Rate", message: "Please specify what 1 Galactic Credit is equivalent to in USD. ", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: nil)
+    
+        alert.addTextField() { textField in
+            
+            textField.addTarget(self, action: #selector(alert.currencyTextFieldValueChanged(_:)), for: .valueChanged)
+            
+        }
         
         let finishAction = UIAlertAction(title: "Convert", style: .default) { (alertAction) in
             
-            completion(Double(alert.textFields!.first!.text!)!) // FIXME: This needs validation. used observers on the text field.
+            completion(Double(alert.textFields!.first!.text!)!)
 
             alert.dismiss(animated: true, completion: nil)
         }
+        
+        finishAction.isEnabled = false
         
         alert.addAction(finishAction)
 
         present(alert, animated: true, completion: nil)
 
     }
+    
 }
 

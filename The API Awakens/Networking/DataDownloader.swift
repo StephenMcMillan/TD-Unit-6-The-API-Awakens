@@ -16,7 +16,6 @@ class DataDownloader {
         
         let task = session.dataTask(with: endpoint.request) { data, response, error in
             
-            DispatchQueue.main.async {
                 guard let httpResponse = response as? HTTPURLResponse else {
                     completion(nil, .badRequest)
                     return
@@ -33,7 +32,6 @@ class DataDownloader {
                 } else {
                     completion(nil, .missingData)
                 }
-            }
         }
         
         task.resume()
