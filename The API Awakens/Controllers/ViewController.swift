@@ -13,6 +13,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        // testing new networking layer
+//        let apiClient = APIClient()
+//        apiClient.getPeople { (people) in
+//            print(people)
+//        }
+        
+//        let peopleDownloader = PeopleDownloader(downloaderDelegate: self)
+//        peopleDownloader.getData() // TODO: Unit test this.
+//
+        
+//        let downloader = Downloader<PersonResult>(endpoint: StarWars.people)
+//        downloader.dele
+//        
+//        downloader.getData()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,4 +51,3 @@ class ViewController: UIViewController {
         }
     }
 }
-

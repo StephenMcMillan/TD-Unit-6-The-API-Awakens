@@ -11,12 +11,15 @@ import Foundation
 protocol Endpoint {
     var base: String { get }
     var path: String { get }
+    var queryItems: [URLQueryItem] { get }
 }
 
 extension Endpoint {
     var request: URLRequest {
-        let url = URL(string: "\(base)\(path)")
-        return URLRequest(url: url!)
+        var urlComponents = URLComponents(string: base)!
+        urlComponents.path = path
+        urlComponents.queryItems = queryItems
+        return URLRequest(url: urlComponents.url!)
     }
 }
 
@@ -29,14 +32,19 @@ enum StarWars {
 extension StarWars: Endpoint {
     
     var base: String {
-        return "https://swapi.co/api"
+        return "https://swapi.co"
     }
     
     var path: String {
         switch self {
-        case .people: return "/people"
-        case .vehicles: return "/vehicles"
-        case .startships: return "/starships"
+        case .people: return "/api/people"
+        case .vehicles: return "/api/vehicles"
+        case .startships: return "/api/starships"
         }
+    }
+    
+    var queryItems: [URLQueryItem] {
+        let pageQueryItem = URLQueryItem(name: "page", value: "1")
+        return [pageQueryItem]
     }
 }

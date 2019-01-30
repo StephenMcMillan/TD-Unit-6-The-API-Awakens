@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 // A Person in the Star Wars Universe
 struct Person: StarWarsEntity {
     var name: String
@@ -25,13 +26,14 @@ extension Person: Comparable {
         if let lhsHeight = Double(lhs.height), let rhsHeight = Double(rhs.height) {
             return lhsHeight < rhsHeight
         } else {
-            fatalError("Incomporable, unable to convert to double.")
+            return false // Probably an unknown height...
         }
     }
 }
 
 // A wrapper for decoding
-struct PersonResult: Decodable {
+struct PersonResult: EntityResult {
+    var next: String?
     var results: [Person]
 }
 
@@ -39,7 +41,7 @@ extension Person: AttributeRepresentable {
     var attributes: [Attribute] {
         return [(description: "Born", value: .text(self.birthYear)),
                  (description: "Homeworld", value: .text("Fix me")),
-                 (description: "Height", value: .length(Measurement(value: Double(height)!, unit: UnitLength.meters))),
+                 (description: "Height", value: .length(Measurement(value: Double(height) ?? 0, unit: UnitLength.meters))),
                  (description: "Eye Color", value: .text(self.eyeColor.capitalized)),
                  (description: "Hair Color", value: .text(self.hairColor.capitalized))]
     }

@@ -13,9 +13,6 @@ class EntityDetailViewController: UIViewController {
     // Type of Entity
     var typeOfEntityToShow: EntityType?
     
-    // Networking Properties
-    var starWarsAPIClient = StarWarsAPIClient()
-
     // Properties
     var allEntities: [StarWarsEntity] = []
     var currentEntity: StarWarsEntity? {
@@ -60,30 +57,21 @@ class EntityDetailViewController: UIViewController {
     func fetchData(for entityType: EntityType) {
         switch entityType {
         case .people:
-            starWarsAPIClient.getPeople(completionHandler: setup)
+            let peopleDownloader = Downloader<PersonResult>(endpoint: StarWars.people)
+            peopleDownloader.delegate = self
+            peopleDownloader.getData()
         case .vehicles:
-            starWarsAPIClient.getVehicles(completionHandler: setup)
+            let vehicleDownloader = Downloader<VehicleResult>(endpoint: StarWars.vehicles)
+            vehicleDownloader.delegate = self
+            vehicleDownloader.getData()
         case .starships:
-            starWarsAPIClient.getStarships(completionHandler: setup)
+            let starshipsDownloader = Downloader<StarshipResult>(endpoint: StarWars.startships)
+            starshipsDownloader.delegate = self
+            starshipsDownloader.getData()
         }
     }
     
-    func setup<T: StarWarsEntity>(with entities:[T]?, error: StarWarsAPIError?) {
-        
-        DispatchQueue.main.async {
-            guard let entities = entities else {
-                // TODO: Check capture semantics, possible memory leak due to self capture
-                let errorAlert = UIAlertController.networkErrorAlert(error: error)
-                let popAction = UIAlertAction(title: "Ok", style: .default) { alert in
-                    self.navigationController?.popViewController(animated: true)
-                }
-                
-                errorAlert.addAction(popAction)
-
-                self.present(errorAlert, animated: true, completion: nil) // FIXME: See ^ 
-                
-                return
-            }
+    func setup<Entity: ComparableStarWarsEntity>(with entities: [Entity], error: Error?) {
             
             self.allEntities = entities
             
@@ -93,7 +81,6 @@ class EntityDetailViewController: UIViewController {
             self.entityPickerView.reloadAllComponents()
             self.currentEntity = entities.first
             self.updateSmallestAndLargestBar(using: entities)
-        }
         
     }
     
@@ -106,31 +93,16 @@ class EntityDetailViewController: UIViewController {
             attributesTableDataSource.update(with: entityWithAttributes.attributes)
             attributesTableView.reloadData()
         }
-        
-        
     }
     
-    func updateSmallestAndLargestBar(using entities: [StarWarsEntity]) {
-        // Not a huge fan but it works...
-        var sortedEntities: [StarWarsEntity] = []
-        
-        if let peopleEntities = entities as? [Person] {
-            sortedEntities = peopleEntities.sorted { $0 < $1 }
-            
-        } else if let vehicleEntities = entities as? [Vehicle] {
-            sortedEntities = vehicleEntities.sorted { $0 < $1 }
-            
-        } else if let starshipEntities = entities as? [Starship] {
-            sortedEntities = starshipEntities.sorted { $0 < $1 }
-        }
+    func updateSmallestAndLargestBar<Entity: ComparableStarWarsEntity>(using entities: [Entity]) {
+        let sortedEntities = entities.sorted { $0 < $1 }
         
         smallestEntityLabel.text = sortedEntities.first?.name
         largestEntityLabel.text = sortedEntities.last?.name
         
         smallestEntityLabel.isHidden = false
         largestEntityLabel.isHidden = false
-        
-
     }
 }
 
@@ -149,28 +121,19 @@ extension EntityDetailViewController: UIPickerViewDelegate {
 extension EntityDetailViewController: AttributeCellCurrencyRateDelegate {
     func getConversionRate(completion: @escaping (Double) -> Void) {
         
-        let alert = UIAlertController(title: "Conversion Rate", message: "Please specify what 1 Galactic Credit is equivalent to in USD. ", preferredStyle: .alert)
-    
-        alert.addTextField() { textField in
-            
-            textField.addTarget(self, action: #selector(alert.currencyTextFieldValueChanged(_:)), for: .valueChanged)
-            
-        }
-        
-        let finishAction = UIAlertAction(title: "Convert", style: .default) { (alertAction) in
-            
-            completion(Double(alert.textFields!.first!.text!)!)
+       let currnecyAlert = UIAlertController.currencyConversionAlert(completion: completion)
 
-            alert.dismiss(animated: true, completion: nil)
-        }
-        
-        finishAction.isEnabled = false
-        
-        alert.addAction(finishAction)
-
-        present(alert, animated: true, completion: nil)
+        present(currnecyAlert, animated: true, completion: nil)
 
     }
-    
 }
 
+extension EntityDetailViewController: DownloaderDelegate {
+    func errorOccuredDuringDownload(error: StarWarsAPIError) {
+        
+    }
+    
+    func downloadFinished<Entity: ComparableStarWarsEntity>(results: [Entity]) {
+        self.setup(with: results, error: nil)
+    }
+}

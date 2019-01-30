@@ -24,20 +24,30 @@ extension Starship: Comparable {
         if let lhsLength = Double(lhs.length), let rhsLength = Double(rhs.length) {
             return lhsLength < rhsLength
         } else {
-            fatalError("Incomporable, unable to convert to double.")
+            return false // Probably an unknown value returned from the api.
         }
     }
 }
 
 // Decoding wrapper
-struct StarshipResult: Decodable {
+struct StarshipResult: EntityResult {
+    var next: String?
     var results: [Starship]
 }
 
 extension Starship: AttributeRepresentable {
     var attributes: [Attribute] {
+        
+        var costAttribute: Attribute
+        
+        if let cost = Double(self.costInCredits) {
+            costAttribute = Attribute(description: "Cost", value: .currency(cost))
+        } else {
+            costAttribute = Attribute(description: "Cost", value: .text("Cost Unknown"))
+        }
+        
         return [(description: "Make", value: .text(self.manufacturer)),
-                (description: "Cost", value: .currency(Double(self.costInCredits)!)),
+                costAttribute,
                 (description: "Length", value: .length(Measurement(value: Double(self.length)!, unit: UnitLength.meters))),
                 (description: "Class", value: .text(self.starshipClass.capitalized)),
                 (description: "Crew", value: .text(self.crew))]

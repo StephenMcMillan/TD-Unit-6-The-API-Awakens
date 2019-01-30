@@ -9,6 +9,8 @@
 import Foundation
 
 enum StarWarsAPIError: Error {
+    case requestTimeOut
+    case noInternetConnection
     case badRequest
     case requestUnsuccessful(Int)
     case decodingFailure

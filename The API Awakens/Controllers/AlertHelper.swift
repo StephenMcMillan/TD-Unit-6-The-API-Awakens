@@ -14,22 +14,42 @@ extension UIAlertController {
     
     // Default Alert Config
     static func networkErrorAlert(error: Error?) -> UIAlertController {
+        
         let alertError = UIAlertController(title: "Network Error", message: "Error retrieving information from the network. Error message: \(error?.localizedDescription ?? "Unavailable").", preferredStyle: .alert)
         return alertError
+    }
+    
+    static func currencyConversionAlert(completion: @escaping (Double) -> Void) -> UIAlertController {
+        
+        let currencyAlert = UIAlertController(title: "Conversion Rate", message: "Please specify what 1 Galactic Credit is equivalent to in USD. ", preferredStyle: .alert)
+        
+        currencyAlert.addTextField() { textField in
+            print("Adding handler")
+            textField.addTarget(currencyAlert, action: #selector(currencyAlert.currencyTextFieldValueChanged(_:)), for: .editingChanged)
+            
+        }
+        
+        let finishAction = UIAlertAction(title: "Convert", style: .default) { (alertAction) in
+            
+            completion(Double(currencyAlert.textFields!.first!.text!)!)
+            
+            currencyAlert.dismiss(animated: true, completion: nil)
+        }
+        
+        finishAction.isEnabled = false
+        
+        currencyAlert.addAction(finishAction)
+        
+        return currencyAlert
     }
     
     // Currency Helper
     @objc func currencyTextFieldValueChanged(_ textField: UITextField) {
         // Validation of Currency
-        
-        guard let text = textField.text, text.count > 0 else {
-            return
+        if let text = textField.text, let multiplier = Double(text), multiplier > 0 {
+            actions.last?.isEnabled = true
+        } else {
+            actions.last?.isEnabled = false
         }
-        
-        guard let multiplier = Double(text), multiplier > 0 else {
-            return
-        }
-        
-        actions.last?.isEnabled = true
     }
 }

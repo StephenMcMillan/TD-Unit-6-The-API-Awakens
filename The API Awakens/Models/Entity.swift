@@ -7,11 +7,20 @@
 //
 
 import Foundation
-
 // Various Helpers
+
+protocol EntityResult: Decodable {
+    associatedtype Entity: ComparableStarWarsEntity
+    
+    var next: String? { get }
+    var results: [Entity] { get }
+}
+
 protocol StarWarsEntity: Decodable {
     var name: String { get set}
 }
+
+typealias ComparableStarWarsEntity = StarWarsEntity & Comparable
 
 enum EntityType: String {
     case people = "Characters"
