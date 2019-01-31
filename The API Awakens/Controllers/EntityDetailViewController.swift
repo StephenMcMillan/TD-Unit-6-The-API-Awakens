@@ -17,7 +17,10 @@ class EntityDetailViewController: UIViewController {
     var allEntities: [StarWarsEntity] = []
     var currentEntity: StarWarsEntity? {
         didSet {
+            print("Updating...")
             updateDisplay(for: currentEntity!)
+            
+            
         }
     }
     
@@ -44,6 +47,7 @@ class EntityDetailViewController: UIViewController {
         
         smallestEntityLabel.isHidden = true
         largestEntityLabel.isHidden = true
+        nameLabel.isHidden = true
         
         attributesTableView.dataSource = attributesTableDataSource
         entityPickerView.dataSource = entityPickerDataSource 
@@ -57,37 +61,91 @@ class EntityDetailViewController: UIViewController {
     func fetchData(for entityType: EntityType) {
         switch entityType {
         case .people:
-            let peopleDownloader = Downloader<PersonResult>(endpoint: StarWars.people)
-            peopleDownloader.delegate = self
-            peopleDownloader.getData()
+        
+            StarWarsAPIClient.getAllPeople { (people, error) in
+                if let error = error {
+                    fatalError(error.localizedDescription)
+                }
+                
+                if let people = people {
+                    self.setup(with: people)
+                }
+            }
+            
         case .vehicles:
-            let vehicleDownloader = Downloader<VehicleResult>(endpoint: StarWars.vehicles)
-            vehicleDownloader.delegate = self
-            vehicleDownloader.getData()
+        
+            StarWarsAPIClient.getAllVehicles { (vehicles, error) in
+                if let error = error {
+                    fatalError(error.localizedDescription)
+                }
+                
+                if let vehicles = vehicles {
+                    self.setup(with: vehicles)
+                }
+            }
+            
         case .starships:
-            let starshipsDownloader = Downloader<StarshipResult>(endpoint: StarWars.startships)
-            starshipsDownloader.delegate = self
-            starshipsDownloader.getData()
+            
+            StarWarsAPIClient.getAllStarships { (starships, error) in
+                if let error = error {
+                    fatalError(error.localizedDescription)
+                }
+                
+                if let starships = starships {
+                    self.setup(with: starships)
+                }
+            }
+            
         }
     }
     
-    func setup<Entity: ComparableStarWarsEntity>(with entities: [Entity], error: Error?) {
-            
+    func setup<Entity: ComparableStarWarsEntity>(with entities: [Entity]) {
+        DispatchQueue.main.async {
             self.allEntities = entities
             
             let entityNames = self.allEntities.map { $0.name }
             
             self.entityPickerDataSource.update(with: entityNames)
             self.entityPickerView.reloadAllComponents()
-            self.currentEntity = entities.first
+            
             self.updateSmallestAndLargestBar(using: entities)
+            
+            if entities is [Person] {
+                self.showPersonEntity(at: self.allEntities.startIndex) // First item.
+            } else {
+                self.currentEntity = entities.first
+            }
+        }
+    }
+    
+    func showPersonEntity(at index: Int) {
         
+        if let personEntity = allEntities[index] as? Person {
+            
+            guard personEntity.homeworld == nil else {
+                self.currentEntity = personEntity
+                return
+            }
+            
+            StarWarsAPIClient.fetchAssociatedValues(for: personEntity) { (person, error) in
+                
+                guard let person = person else {
+                    fatalError("Oops.") // Fixme: Add alert view to display errors
+                }
+                
+                DispatchQueue.main.async {
+                    self.currentEntity = person
+                    self.allEntities[index] = person
+                }
+            }
+        }
     }
     
     // MARK: - Update Display
     func updateDisplay(for entity: StarWarsEntity) {
         
         nameLabel.text = entity.name
+        nameLabel.isHidden = false
         
         if let entityWithAttributes = entity as? AttributeRepresentable {
             attributesTableDataSource.update(with: entityWithAttributes.attributes)
@@ -113,7 +171,13 @@ extension EntityDetailViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        currentEntity = allEntities[row]
+        
+        if allEntities is [Person] {
+            showPersonEntity(at: row) // There's additional work to do if the type is Person before updating the UI
+        } else {
+            self.currentEntity = allEntities[row]
+        }
+        
     }
 }
 
@@ -125,15 +189,5 @@ extension EntityDetailViewController: AttributeCellCurrencyRateDelegate {
 
         present(currnecyAlert, animated: true, completion: nil)
 
-    }
-}
-
-extension EntityDetailViewController: DownloaderDelegate {
-    func errorOccuredDuringDownload(error: StarWarsAPIError) {
-        
-    }
-    
-    func downloadFinished<Entity: ComparableStarWarsEntity>(results: [Entity]) {
-        self.setup(with: results, error: nil)
     }
 }

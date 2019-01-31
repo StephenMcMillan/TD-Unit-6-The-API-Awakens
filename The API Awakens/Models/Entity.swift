@@ -17,7 +17,8 @@ protocol EntityResult: Decodable {
 }
 
 protocol StarWarsEntity: Decodable {
-    var name: String { get set}
+    var name: String { get set }
+    var url: String { get set }
 }
 
 typealias ComparableStarWarsEntity = StarWarsEntity & Comparable

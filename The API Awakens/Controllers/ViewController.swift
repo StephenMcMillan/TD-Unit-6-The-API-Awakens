@@ -13,24 +13,22 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
-        // testing new networking layer
-//        let apiClient = APIClient()
-//        apiClient.getPeople { (people) in
-//            print(people)
-//        }
-        
-//        let peopleDownloader = PeopleDownloader(downloaderDelegate: self)
-//        peopleDownloader.getData() // TODO: Unit test this.
 //
-        
-//        let downloader = Downloader<PersonResult>(endpoint: StarWars.people)
-//        downloader.dele
-//        
-//        downloader.getData()
-        
+//        let client = SWAPIClient()
+//
+//        client.fetchAll { (error) in
+//            if let error = error {
+//                self.handleError(error: error)
+//                return
+//            }
+//
+//            print("SUCCESS!")
+//        }
     }
+//
+//    func handleError(error: Error) {
+//        print(error.localizedDescription)
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailViewController = segue.destination as? EntityDetailViewController, let identifier = segue.identifier {

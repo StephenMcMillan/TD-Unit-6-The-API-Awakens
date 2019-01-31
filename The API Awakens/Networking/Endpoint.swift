@@ -26,7 +26,8 @@ extension Endpoint {
 enum StarWars {
     case people
     case vehicles
-    case startships
+    case starships
+    case planets
 }
 
 extension StarWars: Endpoint {
@@ -39,7 +40,8 @@ extension StarWars: Endpoint {
         switch self {
         case .people: return "/api/people"
         case .vehicles: return "/api/vehicles"
-        case .startships: return "/api/starships"
+        case .starships: return "/api/starships"
+        case .planets: return "/api/planets"
         }
     }
     

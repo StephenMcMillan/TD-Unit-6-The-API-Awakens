@@ -11,13 +11,32 @@ import Foundation
 // A Person in the Star Wars Universe
 struct Person: StarWarsEntity {
     var name: String
+    var url: String
     
     let birthYear: String
-    //    let homeworld: Well.. :/
+    let homeworldUrl: String
     let height: String
     let eyeColor: String
     let hairColor: String
-
+    let vehicles: [String]
+    let starships: [String]
+    
+    var homeworld: Planet? = nil
+    var pilotedVehicles: [Vehicle] = []
+    var pilotedStarships: [Starship] = []
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case url
+        case birthYear
+        case homeworldUrl = "homeworld"
+        case height
+        case eyeColor
+        case hairColor
+        case vehicles
+        case starships
+    }
+    
 }
 
 // People can be compared based on their heights.
@@ -39,10 +58,24 @@ struct PersonResult: EntityResult {
 
 extension Person: AttributeRepresentable {
     var attributes: [Attribute] {
-        return [(description: "Born", value: .text(self.birthYear)),
-                 (description: "Homeworld", value: .text("Fix me")),
+        
+        var result: [Attribute] = [(description: "Born", value: .text(self.birthYear)),
+                 (description: "Homeworld", value: .text(self.homeworld?.name ?? "")),
                  (description: "Height", value: .length(Measurement(value: Double(height) ?? 0, unit: UnitLength.meters))),
                  (description: "Eye Color", value: .text(self.eyeColor.capitalized)),
-                 (description: "Hair Color", value: .text(self.hairColor.capitalized))]
+                 (description: "Hair Color", value: .text(self.hairColor.capitalized))
+        ]
+        
+        for vehicle in pilotedVehicles {
+            let attribute = Attribute(description: "Piloted Vehicle", .text(vehicle.name))
+            result.append(attribute)
+        }
+        
+        for starship in pilotedStarships {
+            let attribute = Attribute(description: "Piloted Starship", .text(starship.name))
+            result.append(attribute)
+        }
+        
+        return result
     }
 }

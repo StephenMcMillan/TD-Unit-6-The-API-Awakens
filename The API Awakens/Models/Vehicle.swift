@@ -17,6 +17,7 @@ struct Vehicle: StarWarsEntity {
     var length: String
     var vehicleClass: String
     var crew: String
+    var url: String
 }
 
 // Vehicles can be compared based on their lengths.

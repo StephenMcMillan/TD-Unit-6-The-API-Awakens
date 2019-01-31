@@ -11,6 +11,7 @@ import Foundation
 // A Starship in the Star Wars Universe. A vehicle WITH Hyperdrive.
 struct Starship: StarWarsEntity {
     var name: String
+    var url: String
     var manufacturer: String
     var costInCredits: String
     var length: String
