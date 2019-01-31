@@ -10,12 +10,11 @@ import Foundation
 
 struct Planet: StarWarsEntity {
     var name: String
-    var url: String
 }
 
 extension Planet: Comparable {
     static func < (lhs: Planet, rhs: Planet) -> Bool {
-        return lhs.url == rhs.url
+        return lhs.name == rhs.name
     }
 }
 

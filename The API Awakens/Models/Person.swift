@@ -11,7 +11,6 @@ import Foundation
 // A Person in the Star Wars Universe
 struct Person: StarWarsEntity {
     var name: String
-    var url: String
     
     let birthYear: String
     let homeworldUrl: String
@@ -27,7 +26,6 @@ struct Person: StarWarsEntity {
     
     private enum CodingKeys: String, CodingKey {
         case name
-        case url
         case birthYear
         case homeworldUrl = "homeworld"
         case height
@@ -61,7 +59,7 @@ extension Person: AttributeRepresentable {
         
         var result: [Attribute] = [(description: "Born", value: .text(self.birthYear)),
                  (description: "Homeworld", value: .text(self.homeworld?.name ?? "")),
-                 (description: "Height", value: .length(Measurement(value: Double(height) ?? 0, unit: UnitLength.meters))),
+                 (description: "Height", value: .length(Measurement(value: Double(height) ?? 0, unit: UnitLength.centimeters))),
                  (description: "Eye Color", value: .text(self.eyeColor.capitalized)),
                  (description: "Hair Color", value: .text(self.hairColor.capitalized))
         ]

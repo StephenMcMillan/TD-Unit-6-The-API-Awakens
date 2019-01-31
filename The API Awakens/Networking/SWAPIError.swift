@@ -14,6 +14,9 @@ enum StarWarsAPIError: Error, LocalizedError {
     case decodingFailure
     case unknown
     case invalidHomeworldUrl
+    case invalidVehicleUrl
+    case invalidStarshipUrl
+    case errorFetchingAssociatedData
     
     var errorDescription: String? {
         switch self {
@@ -27,6 +30,13 @@ enum StarWarsAPIError: Error, LocalizedError {
             return "Unable to identify error source. See source."
         case .invalidHomeworldUrl:
             return "Homeworld was missing from return data. Contact API admin."
+        case .invalidVehicleUrl:
+            return "Vehicle was missing from return data. Contact API admin."
+        case .invalidStarshipUrl:
+            return "Starship was missing from return data. Contact API admin."
+        case .errorFetchingAssociatedData:
+            return "An error occured whilst try to fetch associated data."
+
         }
     }
 }

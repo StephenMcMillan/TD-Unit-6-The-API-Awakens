@@ -17,10 +17,7 @@ class EntityDetailViewController: UIViewController {
     var allEntities: [StarWarsEntity] = []
     var currentEntity: StarWarsEntity? {
         didSet {
-            print("Updating...")
             updateDisplay(for: currentEntity!)
-            
-            
         }
     }
     
@@ -64,7 +61,7 @@ class EntityDetailViewController: UIViewController {
         
             StarWarsAPIClient.getAllPeople { (people, error) in
                 if let error = error {
-                    fatalError(error.localizedDescription)
+                    self.showAlert(for: error)
                 }
                 
                 if let people = people {
@@ -76,7 +73,7 @@ class EntityDetailViewController: UIViewController {
         
             StarWarsAPIClient.getAllVehicles { (vehicles, error) in
                 if let error = error {
-                    fatalError(error.localizedDescription)
+                    self.showAlert(for: error)
                 }
                 
                 if let vehicles = vehicles {
@@ -88,7 +85,7 @@ class EntityDetailViewController: UIViewController {
             
             StarWarsAPIClient.getAllStarships { (starships, error) in
                 if let error = error {
-                    fatalError(error.localizedDescription)
+                    self.showAlert(for: error)
                 }
                 
                 if let starships = starships {
@@ -130,7 +127,8 @@ class EntityDetailViewController: UIViewController {
             StarWarsAPIClient.fetchAssociatedValues(for: personEntity) { (person, error) in
                 
                 guard let person = person else {
-                    fatalError("Oops.") // Fixme: Add alert view to display errors
+                    self.showAlert(for: error)
+                    return
                 }
                 
                 DispatchQueue.main.async {
@@ -162,32 +160,16 @@ class EntityDetailViewController: UIViewController {
         smallestEntityLabel.isHidden = false
         largestEntityLabel.isHidden = false
     }
-}
-
-extension EntityDetailViewController: UIPickerViewDelegate {
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return allEntities[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        if allEntities is [Person] {
-            showPersonEntity(at: row) // There's additional work to do if the type is Person before updating the UI
-        } else {
-            self.currentEntity = allEntities[row]
+    // MARK: - Alert
+    func showAlert(for error: Error?) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController.errorAlert(error: error)
+            let action = UIAlertAction(title: "Ok", style: .default) { alertAction in
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
         }
-        
-    }
-}
-
-// FIXME: Extract
-extension EntityDetailViewController: AttributeCellCurrencyRateDelegate {
-    func getConversionRate(completion: @escaping (Double) -> Void) {
-        
-       let currnecyAlert = UIAlertController.currencyConversionAlert(completion: completion)
-
-        present(currnecyAlert, animated: true, completion: nil)
-
     }
 }

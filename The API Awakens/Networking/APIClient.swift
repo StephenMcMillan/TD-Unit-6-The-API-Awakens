@@ -34,7 +34,6 @@ class StarWarsAPIClient {
         
         var updatedPerson = person
         
-        print("Ok we're fetching. lol")
         let dispatchGroup = DispatchGroup()
         
         // 1. Grab the Homeworld from the URL.
@@ -57,7 +56,7 @@ class StarWarsAPIClient {
         // 2. Grab the Associated Vehicles
         for vehicle in person.vehicles {
             guard let vehicleUrl = URL(string: vehicle) else {
-                completion(nil, nil) // FIXME:
+                completion(nil, StarWarsAPIError.invalidVehicleUrl) // FIXME:
                 return
             }
             
@@ -76,7 +75,7 @@ class StarWarsAPIClient {
         // 3. Grab the Associated Starships
         for starship in person.starships {
             guard let starshipUrl = URL(string: starship) else {
-                completion(nil, nil)
+                completion(nil, StarWarsAPIError.invalidStarshipUrl)
                 return
             }
             
@@ -160,7 +159,6 @@ class EntityCollectionDownloader<Result: EntityResult> {
 
                 } else {
                     // There are no further pages, we can exit the downloader and inform the delegate.
-                    print(self.results.count)
                     completion(self.results, nil)
                     return
                 }

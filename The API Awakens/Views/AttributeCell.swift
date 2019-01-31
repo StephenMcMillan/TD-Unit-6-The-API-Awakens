@@ -55,8 +55,18 @@ class AttributeCell: UITableViewCell {
             valueStepper.isHidden = true
             
         case .length(let measurement):
-            valueStepper.setTitle("Metric", forSegmentAt: 0)
-            valueStepper.setTitle("Inches", forSegmentAt: 1)
+            
+            switch measurement.unit {
+            case UnitLength.meters:
+                valueStepper.setTitle("Metres", forSegmentAt: 0)
+                valueStepper.setTitle("Inches", forSegmentAt: 1)
+            case UnitLength.centimeters:
+                valueStepper.setTitle("CM", forSegmentAt: 0)
+                valueStepper.setTitle("Feet", forSegmentAt: 1)
+            default:
+                break
+            }
+
             valueStepper.isHidden = false
     
             update(using: measurement)
@@ -74,10 +84,17 @@ class AttributeCell: UITableViewCell {
     // MARK: - Logic for handling unit conversion
     
     func update(using measurement: Measurement<UnitLength>) {
+        
+        let roundedValue = (measurement.value * 100).rounded() / 100
+        
         if measurement.unit == UnitLength.meters {
-            attributeLabel.text = "\(measurement.value)m"
+            attributeLabel.text = "\(roundedValue)m"
         } else if measurement.unit == UnitLength.inches {
-            attributeLabel.text = "\(measurement.value.rounded())in"
+            attributeLabel.text = "\(roundedValue)in"
+        } else if measurement.unit == UnitLength.centimeters {
+            attributeLabel.text = "\(roundedValue)cm"
+        } else if measurement.unit == UnitLength.feet {
+            attributeLabel.text = "\(roundedValue)ft"
         }
     }
     
@@ -92,23 +109,36 @@ class AttributeCell: UITableViewCell {
         switch currentContent {
             
         case .length(let measurement):
-    
-            if sender.selectedSegmentIndex == 0 {
-                // Convert to metric
-                let convertedMeasurement = measurement.converted(to: UnitLength.meters)
-                self.currentContent = .length(convertedMeasurement)
-                update(using: convertedMeasurement)
-            } else if sender.selectedSegmentIndex == 1 {
-                // Convert to inches
-                let convertedMeasurement = measurement.converted(to: UnitLength.inches)
-                self.currentContent = .length(convertedMeasurement)
-                update(using: convertedMeasurement)
+            
+            if measurement.unit == UnitLength.meters || measurement.unit == UnitLength.inches {
+                
+                if sender.selectedSegmentIndex == 0 {
+                    // Convert to metric
+                    let convertedMeasurement = measurement.converted(to: UnitLength.meters)
+                    self.currentContent = .length(convertedMeasurement)
+                    update(using: convertedMeasurement)
+                } else if sender.selectedSegmentIndex == 1 {
+                    // Convert to inches
+                    let convertedMeasurement = measurement.converted(to: UnitLength.inches)
+                    self.currentContent = .length(convertedMeasurement)
+                    update(using: convertedMeasurement)
+                }
+                
+            } else if measurement.unit == UnitLength.centimeters || measurement.unit == UnitLength.feet {
+                if sender.selectedSegmentIndex == 0 {
+                    // Convert to cm
+                    let convertedMeasurement = measurement.converted(to: UnitLength.centimeters)
+                    self.currentContent = .length(convertedMeasurement)
+                    update(using: convertedMeasurement)
+                } else if sender.selectedSegmentIndex == 1 {
+                    // Convert to feet
+                    let convertedMeasurement = measurement.converted(to: UnitLength.feet)
+                    self.currentContent = .length(convertedMeasurement)
+                    update(using: convertedMeasurement)
+                }
             }
             
-            
-        case .currency(let currencyValue):
-            print("Currency conversion logic.")
-            
+        case .currency(let currencyValue):            
             if sender.selectedSegmentIndex == 0 {
                 update(using: currencyValue)
             } else {

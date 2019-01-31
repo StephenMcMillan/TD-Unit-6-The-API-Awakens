@@ -17,7 +17,6 @@ struct Vehicle: StarWarsEntity {
     var length: String
     var vehicleClass: String
     var crew: String
-    var url: String
 }
 
 // Vehicles can be compared based on their lengths.
@@ -50,7 +49,7 @@ extension Vehicle: AttributeRepresentable {
         
         return [(description: "Make", value: .text(self.manufacturer)),
                 costAttribute,
-                (description: "Length", value: .length(Measurement(value: Double(self.length)!, unit: UnitLength.meters))),
+                (description: "Length", value: .length(Measurement(value: Double(self.length) ?? 0, unit: UnitLength.meters))),
                 (description: "Class", value: .text(self.vehicleClass.capitalized)),
                 (description: "Crew", value: .text(self.crew))]
     }

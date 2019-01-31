@@ -13,9 +13,9 @@ import UIKit
 extension UIAlertController {
     
     // Default Alert Config
-    static func networkErrorAlert(error: Error?) -> UIAlertController {
+    static func errorAlert(error: Error?) -> UIAlertController {
         
-        let alertError = UIAlertController(title: "Network Error", message: "Error retrieving information from the network. Error message: \(error?.localizedDescription ?? "Unavailable").", preferredStyle: .alert)
+        let alertError = UIAlertController(title: "Ooops!", message: error?.localizedDescription ?? "An error occured. The source of the error could not be identified.", preferredStyle: .alert)
         return alertError
     }
     
@@ -24,7 +24,7 @@ extension UIAlertController {
         let currencyAlert = UIAlertController(title: "Conversion Rate", message: "Please specify what 1 Galactic Credit is equivalent to in USD. ", preferredStyle: .alert)
         
         currencyAlert.addTextField() { textField in
-            print("Adding handler")
+            textField.placeholder = "1.0"
             textField.addTarget(currencyAlert, action: #selector(currencyAlert.currencyTextFieldValueChanged(_:)), for: .editingChanged)
             
         }

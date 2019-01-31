@@ -11,7 +11,6 @@ import Foundation
 // A Starship in the Star Wars Universe. A vehicle WITH Hyperdrive.
 struct Starship: StarWarsEntity {
     var name: String
-    var url: String
     var manufacturer: String
     var costInCredits: String
     var length: String
@@ -49,7 +48,7 @@ extension Starship: AttributeRepresentable {
         
         return [(description: "Make", value: .text(self.manufacturer)),
                 costAttribute,
-                (description: "Length", value: .length(Measurement(value: Double(self.length)!, unit: UnitLength.meters))),
+                (description: "Length", value: .length(Measurement(value: Double(self.length) ?? 0, unit: UnitLength.meters))),
                 (description: "Class", value: .text(self.starshipClass.capitalized)),
                 (description: "Crew", value: .text(self.crew))]
     }
